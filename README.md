@@ -1,16 +1,13 @@
-# weather_app
-
 Just a simple weather app
 
-## Getting Started
+In this App you cand search for a city and then the weather forecast for the text 5 days will show.
+In the right up corner you can toggle between Celsius and Fahrenheit.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+<img src="https://i.gyazo.com/be001255597e9d66eb2f1053f4721d06.png" width="400" height="800">  
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://i.gyazo.com/d8c82174c7f1a6fb7d2cc7b40622a9ed.png" width="400" height="800">  
+
+
+<img src="https://i.gyazo.com/82a32664f7c55e6e52ffd319bfafd921.png" width="400" height="800">  
