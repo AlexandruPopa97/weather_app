@@ -3,21 +3,22 @@ import 'package:weather_app/actions/index.dart';
 import 'package:weather_app/models/index.dart';
 
 Reducer<AppState> reducer = combineReducers(<Reducer<AppState>>[
-  TypedReducer<AppState, GetWeatherStart>(_getWeatherStart),
+  TypedReducer<AppState, GetWeather>(_getWeatherStart),
   TypedReducer<AppState, GetWeatherSuccessful>(_getWeatherSuccessful),
   TypedReducer<AppState, GetWeatherError>(_getWeatherError),
-  TypedReducer<AppState, GetCityStart>(_getCityStart),
+  TypedReducer<AppState, GetCity>(_getCityStart),
   TypedReducer<AppState, GetCitySuccessful>(_getCitySuccessful),
   TypedReducer<AppState, GetCityError>(_getCityError),
 ]);
 
-AppState _getWeatherStart(AppState state, GetWeatherStart action) {
+AppState _getWeatherStart(AppState state, GetWeather action) {
   return state.rebuild((AppStateBuilder b) => b.isLoading = true);
 }
 
 AppState _getWeatherSuccessful(AppState state, GetWeatherSuccessful action) {
   return state.rebuild((AppStateBuilder b) {
     b
+      ..weathers.removeRange(0, state.weathers.length)
       ..weathers.addAll(action.weathers)
       ..isLoading = false;
   });
@@ -29,7 +30,7 @@ AppState _getWeatherError(AppState state, GetWeatherError action) {
   });
 }
 
-AppState _getCityStart(AppState state, GetCityStart action) {
+AppState _getCityStart(AppState state, GetCity action) {
   return state.rebuild((AppStateBuilder b) => b.isLoading = true);
 }
 

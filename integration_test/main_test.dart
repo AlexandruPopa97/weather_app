@@ -1,16 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_epics/redux_epics.dart';
-import 'package:weather_app/actions/index.dart';
 import 'package:weather_app/data/weather_api.dart';
 import 'package:weather_app/epics/app_epics.dart';
+import 'package:weather_app/main.dart';
 import 'package:weather_app/models/index.dart';
-import 'package:weather_app/presentation/home_page.dart';
 import 'package:weather_app/reducer/reducer.dart';
 
-void main() {
+void main(){
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
   final Client client = Client();
   final WeatherApi weatherApi = WeatherApi(client: client);
   final AppEpics appEpics = AppEpics(weatherApi: weatherApi);
@@ -23,22 +24,8 @@ void main() {
     ],
   );
 
-  store.dispatch(GetWeather.start(woeid: initialState.currentWoeid));
-  runApp(MyApp(store: store));
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.store}) : super(key: key);
-
-  final Store<AppState> store;
-
-  @override
-  Widget build(BuildContext context) {
-    return StoreProvider<AppState>(
-      store: store,
-      child: const MaterialApp(
-        home: HomePage(),
-      ),
-    );
-  }
+  testWidgets('checkDefaultCity', (WidgetTester tester) async{
+    await tester.pumpWidget(MyApp(store: store));
+    await tester.pumpAndSettle(const Duration(seconds: 1));
+  });
 }

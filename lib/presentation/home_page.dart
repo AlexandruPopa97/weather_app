@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:weather_app/actions/index.dart';
 import 'package:weather_app/container/city_container.dart';
 import 'package:weather_app/container/is_loading_container.dart';
@@ -9,7 +8,7 @@ import 'package:weather_app/container/woeid_container.dart';
 import 'package:weather_app/models/index.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -17,8 +16,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController _textController = TextEditingController();
-  bool _showTextBox;
-  bool _isCelsius;
+  late bool _showTextBox;
+  late bool _isCelsius;
 
   @override
   void initState() {
@@ -31,22 +30,26 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return WoeidContainer(builder: (BuildContext builder, String woeid) {
       return CityContainer(builder: (BuildContext builder, String city) {
-        return IsLoadingContainer(builder: (BuildContext builder, bool isLoading) {
-          return WeatherContainer(builder: (BuildContext context, List<Weather> weathers) {
+        return IsLoadingContainer(
+            builder: (BuildContext builder, bool isLoading) {
+          return WeatherContainer(
+              builder: (BuildContext context, List<Weather> weathers) {
             return Scaffold(
               appBar: AppBar(
                 title: const Center(child: Text('Weather App')),
                 backgroundColor: Colors.blue[500],
                 actions: <Widget>[
-                  FlatButton(
-                    textColor: Colors.white,
+                  TextButton(
                     onPressed: () {
                       setState(() {
                         _isCelsius = !_isCelsius;
                       });
                     },
-                    child: Text(_isCelsius ? '°C' : '°F'),
-                    shape: const CircleBorder(side: BorderSide(color: Colors.transparent)),
+                    child: Text(
+                      _isCelsius ? '°C' : '°F',
+                      key: const Key('switch_button'),
+                      style: const TextStyle(color: Colors.white),
+                    ),
                   ),
                 ],
               ),
@@ -65,9 +68,17 @@ class _HomePageState extends State<HomePage> {
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.all(16.0),
-                              child: Text(city, style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
+                              child: Text(
+                                city,
+                                key: const Key('city_name'),
+                                style: const TextStyle(
+                                  fontSize: 24.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                             IconButton(
+                              key: const Key('settings_button'),
                               icon: const Icon(Icons.settings),
                               onPressed: () {
                                 setState(() {
@@ -85,6 +96,7 @@ class _HomePageState extends State<HomePage> {
                               children: <Widget>[
                                 Expanded(
                                   child: TextField(
+                                    key: const Key('text_field'),
                                     controller: _textController,
                                     decoration: const InputDecoration(
                                       labelText: 'Please enter a city name',
@@ -92,9 +104,12 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 IconButton(
+                                  key: const Key('search_button'),
                                   icon: const Icon(Icons.search),
                                   onPressed: () {
-                                    StoreProvider.of<AppState>(context).dispatch(GetCityStart(_textController.text));
+                                    StoreProvider.of<AppState>(context)
+                                        .dispatch(GetCity.start(
+                                            query: _textController.text));
                                   },
                                 )
                               ],
@@ -107,8 +122,11 @@ class _HomePageState extends State<HomePage> {
                               shrinkWrap: true,
                               itemCount: weathers.length,
                               padding: const EdgeInsets.all(16.0),
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                  mainAxisSpacing: 16.0, childAspectRatio: 2.5, crossAxisCount: 1),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      mainAxisSpacing: 16.0,
+                                      childAspectRatio: 2.5,
+                                      crossAxisCount: 1),
                               itemBuilder: (BuildContext context, int index) {
                                 final Weather weather = weathers[index];
                                 return Container(
@@ -119,8 +137,12 @@ class _HomePageState extends State<HomePage> {
                                         padding: const EdgeInsets.all(16.0),
                                         child: Column(
                                           children: <Widget>[
-                                            Text(weather.date, style: const TextStyle(fontSize: 16.0)),
-                                            Text(weather.stateName, style: const TextStyle(fontSize: 16.0)),
+                                            Text(weather.date,
+                                                style: const TextStyle(
+                                                    fontSize: 16.0)),
+                                            Text(weather.stateName,
+                                                style: const TextStyle(
+                                                    fontSize: 16.0)),
                                           ],
                                         ),
                                       ),
@@ -130,16 +152,27 @@ class _HomePageState extends State<HomePage> {
                                           children: <Widget>[
                                             Text(
                                                 'Min ' +
-                                                    (_isCelsius ? weather.minTemp : weather.minTemp * 1.8 + 32)
+                                                    (_isCelsius
+                                                            ? weather.minTemp
+                                                            : weather.minTemp *
+                                                                    1.8 +
+                                                                32)
                                                         .round()
                                                         .toString(),
-                                                style: const TextStyle(fontSize: 16.0)),
+                                                key: Key('min_temp_$index'),
+                                                style: const TextStyle(
+                                                    fontSize: 16.0)),
                                             Text(
                                                 'Max ' +
-                                                    (_isCelsius ? weather.maxTemp : weather.maxTemp * 1.8 + 32)
+                                                    (_isCelsius
+                                                            ? weather.maxTemp
+                                                            : weather.maxTemp *
+                                                                    1.8 +
+                                                                32)
                                                         .round()
                                                         .toString(),
-                                                style: const TextStyle(fontSize: 16.0)),
+                                                style: const TextStyle(
+                                                    fontSize: 16.0)),
                                           ],
                                         ),
                                       ),
@@ -147,11 +180,17 @@ class _HomePageState extends State<HomePage> {
                                         padding: const EdgeInsets.all(16.0),
                                         child: Column(
                                           children: <Widget>[
-                                            Image.network('https://www.metaweather.com/static/img/weather/png/64/' +
-                                                weather.stateAbbr +
-                                                '.png'),
-                                            Text('Humidity ' + weather.humidity.toString() + '%',
-                                                style: const TextStyle(fontSize: 16.0)),
+                                            Image.network(
+                                                'https://www.metaweather.com/static/img/weather/png/64/' +
+                                                    weather.stateAbbr +
+                                                    '.png'),
+                                            Text(
+                                                'Humidity ' +
+                                                    weather.humidity
+                                                        .toString() +
+                                                    '%',
+                                                style: const TextStyle(
+                                                    fontSize: 16.0)),
                                           ],
                                         ),
                                       ),

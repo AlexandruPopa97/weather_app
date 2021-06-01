@@ -4,7 +4,7 @@ import 'package:redux/redux.dart';
 import 'package:weather_app/models/index.dart';
 
 class WoeidContainer extends StatelessWidget {
-  const WoeidContainer({Key key, @required this.builder}) : super(key: key);
+  const WoeidContainer({Key? key, required this.builder}) : super(key: key);
 
   final ViewModelBuilder<String> builder;
 

@@ -1,8 +1,17 @@
 part of models;
 
 abstract class City implements Built<City, CityBuilder> {
-  factory City([void Function(CityBuilder b) updates]) = _$City;
-  factory City.fromJson(dynamic json) => serializers.deserializeWith(serializer, json);
+  factory City({
+    required String cityName,
+    required String woeid,
+  }) {
+    return _$City((CityBuilder builder) {
+      builder
+        ..cityName = cityName
+        ..woeid = woeid;
+    });
+  }
+  factory City.fromJson(dynamic json) => serializers.deserializeWith(serializer, json) as City;
 
   City._();
 

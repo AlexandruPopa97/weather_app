@@ -16,12 +16,15 @@ class _$WeatherSerializer implements StructuredSerializer<Weather> {
   final String wireName = 'Weather';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Weather object, {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+  Iterable<Object?> serialize(Serializers serializers, Weather object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
       'weather_state_name',
-      serializers.serialize(object.stateName, specifiedType: const FullType(String)),
+      serializers.serialize(object.stateName,
+          specifiedType: const FullType(String)),
       'weather_state_abbr',
-      serializers.serialize(object.stateAbbr, specifiedType: const FullType(String)),
+      serializers.serialize(object.stateAbbr,
+          specifiedType: const FullType(String)),
       'applicable_date',
       serializers.serialize(object.date, specifiedType: const FullType(String)),
       'min_temp',
@@ -29,14 +32,15 @@ class _$WeatherSerializer implements StructuredSerializer<Weather> {
       'max_temp',
       serializers.serialize(object.maxTemp, specifiedType: const FullType(num)),
       'humidity',
-      serializers.serialize(object.humidity, specifiedType: const FullType(int)),
+      serializers.serialize(object.humidity,
+          specifiedType: const FullType(int)),
     ];
 
     return result;
   }
 
   @override
-  Weather deserialize(Serializers serializers, Iterable<Object> serialized,
+  Weather deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new WeatherBuilder();
 
@@ -44,25 +48,31 @@ class _$WeatherSerializer implements StructuredSerializer<Weather> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'weather_state_name':
-          result.stateName = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.stateName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'weather_state_abbr':
-          result.stateAbbr = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.stateAbbr = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'applicable_date':
-          result.date = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.date = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'min_temp':
-          result.minTemp = serializers.deserialize(value, specifiedType: const FullType(num)) as num;
+          result.minTemp = serializers.deserialize(value,
+              specifiedType: const FullType(num)) as num;
           break;
         case 'max_temp':
-          result.maxTemp = serializers.deserialize(value, specifiedType: const FullType(num)) as num;
+          result.maxTemp = serializers.deserialize(value,
+              specifiedType: const FullType(num)) as num;
           break;
         case 'humidity':
-          result.humidity = serializers.deserialize(value, specifiedType: const FullType(int)) as int;
+          result.humidity = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
       }
     }
@@ -78,19 +88,22 @@ class _$CitySerializer implements StructuredSerializer<City> {
   final String wireName = 'City';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, City object, {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+  Iterable<Object?> serialize(Serializers serializers, City object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
       'title',
-      serializers.serialize(object.cityName, specifiedType: const FullType(String)),
+      serializers.serialize(object.cityName,
+          specifiedType: const FullType(String)),
       'woeid',
-      serializers.serialize(object.woeid, specifiedType: const FullType(String)),
+      serializers.serialize(object.woeid,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
   }
 
   @override
-  City deserialize(Serializers serializers, Iterable<Object> serialized,
+  City deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CityBuilder();
 
@@ -98,13 +111,15 @@ class _$CitySerializer implements StructuredSerializer<City> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'title':
-          result.cityName = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.cityName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'woeid':
-          result.woeid = serializers.deserialize(value, specifiedType: const FullType(String)) as String;
+          result.woeid = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -123,25 +138,26 @@ class _$AppState extends AppState {
   @override
   final bool isLoading;
 
-  factory _$AppState([void Function(AppStateBuilder) updates]) => (new AppStateBuilder()..update(updates)).build();
+  factory _$AppState([void Function(AppStateBuilder)? updates]) =>
+      (new AppStateBuilder()..update(updates)).build();
 
-  _$AppState._({this.weathers, this.currentCity, this.currentWoeid, this.isLoading}) : super._() {
-    if (weathers == null) {
-      throw new BuiltValueNullFieldError('AppState', 'weathers');
-    }
-    if (currentCity == null) {
-      throw new BuiltValueNullFieldError('AppState', 'currentCity');
-    }
-    if (currentWoeid == null) {
-      throw new BuiltValueNullFieldError('AppState', 'currentWoeid');
-    }
-    if (isLoading == null) {
-      throw new BuiltValueNullFieldError('AppState', 'isLoading');
-    }
+  _$AppState._(
+      {required this.weathers,
+      required this.currentCity,
+      required this.currentWoeid,
+      required this.isLoading})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(weathers, 'AppState', 'weathers');
+    BuiltValueNullFieldError.checkNotNull(
+        currentCity, 'AppState', 'currentCity');
+    BuiltValueNullFieldError.checkNotNull(
+        currentWoeid, 'AppState', 'currentWoeid');
+    BuiltValueNullFieldError.checkNotNull(isLoading, 'AppState', 'isLoading');
   }
 
   @override
-  AppState rebuild(void Function(AppStateBuilder) updates) => (toBuilder()..update(updates)).build();
+  AppState rebuild(void Function(AppStateBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   AppStateBuilder toBuilder() => new AppStateBuilder()..replace(this);
@@ -158,8 +174,10 @@ class _$AppState extends AppState {
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc($jc(0, weathers.hashCode), currentCity.hashCode), currentWoeid.hashCode), isLoading.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, weathers.hashCode), currentCity.hashCode),
+            currentWoeid.hashCode),
+        isLoading.hashCode));
   }
 
   @override
@@ -174,32 +192,34 @@ class _$AppState extends AppState {
 }
 
 class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
-  _$AppState _$v;
+  _$AppState? _$v;
 
-  ListBuilder<Weather> _weathers;
-  ListBuilder<Weather> get weathers => _$this._weathers ??= new ListBuilder<Weather>();
-  set weathers(ListBuilder<Weather> weathers) => _$this._weathers = weathers;
+  ListBuilder<Weather>? _weathers;
+  ListBuilder<Weather> get weathers =>
+      _$this._weathers ??= new ListBuilder<Weather>();
+  set weathers(ListBuilder<Weather>? weathers) => _$this._weathers = weathers;
 
-  String _currentCity;
-  String get currentCity => _$this._currentCity;
-  set currentCity(String currentCity) => _$this._currentCity = currentCity;
+  String? _currentCity;
+  String? get currentCity => _$this._currentCity;
+  set currentCity(String? currentCity) => _$this._currentCity = currentCity;
 
-  String _currentWoeid;
-  String get currentWoeid => _$this._currentWoeid;
-  set currentWoeid(String currentWoeid) => _$this._currentWoeid = currentWoeid;
+  String? _currentWoeid;
+  String? get currentWoeid => _$this._currentWoeid;
+  set currentWoeid(String? currentWoeid) => _$this._currentWoeid = currentWoeid;
 
-  bool _isLoading;
-  bool get isLoading => _$this._isLoading;
-  set isLoading(bool isLoading) => _$this._isLoading = isLoading;
+  bool? _isLoading;
+  bool? get isLoading => _$this._isLoading;
+  set isLoading(bool? isLoading) => _$this._isLoading = isLoading;
 
   AppStateBuilder();
 
   AppStateBuilder get _$this {
-    if (_$v != null) {
-      _weathers = _$v.weathers?.toBuilder();
-      _currentCity = _$v.currentCity;
-      _currentWoeid = _$v.currentWoeid;
-      _isLoading = _$v.isLoading;
+    final $v = _$v;
+    if ($v != null) {
+      _weathers = $v.weathers.toBuilder();
+      _currentCity = $v.currentCity;
+      _currentWoeid = $v.currentWoeid;
+      _isLoading = $v.isLoading;
       _$v = null;
     }
     return this;
@@ -207,14 +227,12 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
 
   @override
   void replace(AppState other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AppState;
   }
 
   @override
-  void update(void Function(AppStateBuilder) updates) {
+  void update(void Function(AppStateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -224,14 +242,21 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
     try {
       _$result = _$v ??
           new _$AppState._(
-              weathers: weathers.build(), currentCity: currentCity, currentWoeid: currentWoeid, isLoading: isLoading);
+              weathers: weathers.build(),
+              currentCity: BuiltValueNullFieldError.checkNotNull(
+                  currentCity, 'AppState', 'currentCity'),
+              currentWoeid: BuiltValueNullFieldError.checkNotNull(
+                  currentWoeid, 'AppState', 'currentWoeid'),
+              isLoading: BuiltValueNullFieldError.checkNotNull(
+                  isLoading, 'AppState', 'isLoading'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'weathers';
         weathers.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError('AppState', _$failedField, e.toString());
+        throw new BuiltValueNestedFieldError(
+            'AppState', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -254,31 +279,28 @@ class _$Weather extends Weather {
   @override
   final int humidity;
 
-  factory _$Weather([void Function(WeatherBuilder) updates]) => (new WeatherBuilder()..update(updates)).build();
+  factory _$Weather([void Function(WeatherBuilder)? updates]) =>
+      (new WeatherBuilder()..update(updates)).build();
 
-  _$Weather._({this.stateName, this.stateAbbr, this.date, this.minTemp, this.maxTemp, this.humidity}) : super._() {
-    if (stateName == null) {
-      throw new BuiltValueNullFieldError('Weather', 'stateName');
-    }
-    if (stateAbbr == null) {
-      throw new BuiltValueNullFieldError('Weather', 'stateAbbr');
-    }
-    if (date == null) {
-      throw new BuiltValueNullFieldError('Weather', 'date');
-    }
-    if (minTemp == null) {
-      throw new BuiltValueNullFieldError('Weather', 'minTemp');
-    }
-    if (maxTemp == null) {
-      throw new BuiltValueNullFieldError('Weather', 'maxTemp');
-    }
-    if (humidity == null) {
-      throw new BuiltValueNullFieldError('Weather', 'humidity');
-    }
+  _$Weather._(
+      {required this.stateName,
+      required this.stateAbbr,
+      required this.date,
+      required this.minTemp,
+      required this.maxTemp,
+      required this.humidity})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(stateName, 'Weather', 'stateName');
+    BuiltValueNullFieldError.checkNotNull(stateAbbr, 'Weather', 'stateAbbr');
+    BuiltValueNullFieldError.checkNotNull(date, 'Weather', 'date');
+    BuiltValueNullFieldError.checkNotNull(minTemp, 'Weather', 'minTemp');
+    BuiltValueNullFieldError.checkNotNull(maxTemp, 'Weather', 'maxTemp');
+    BuiltValueNullFieldError.checkNotNull(humidity, 'Weather', 'humidity');
   }
 
   @override
-  Weather rebuild(void Function(WeatherBuilder) updates) => (toBuilder()..update(updates)).build();
+  Weather rebuild(void Function(WeatherBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   WeatherBuilder toBuilder() => new WeatherBuilder()..replace(this);
@@ -298,7 +320,11 @@ class _$Weather extends Weather {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc($jc(0, stateName.hashCode), stateAbbr.hashCode), date.hashCode), minTemp.hashCode),
+        $jc(
+            $jc(
+                $jc($jc($jc(0, stateName.hashCode), stateAbbr.hashCode),
+                    date.hashCode),
+                minTemp.hashCode),
             maxTemp.hashCode),
         humidity.hashCode));
   }
@@ -317,42 +343,43 @@ class _$Weather extends Weather {
 }
 
 class WeatherBuilder implements Builder<Weather, WeatherBuilder> {
-  _$Weather _$v;
+  _$Weather? _$v;
 
-  String _stateName;
-  String get stateName => _$this._stateName;
-  set stateName(String stateName) => _$this._stateName = stateName;
+  String? _stateName;
+  String? get stateName => _$this._stateName;
+  set stateName(String? stateName) => _$this._stateName = stateName;
 
-  String _stateAbbr;
-  String get stateAbbr => _$this._stateAbbr;
-  set stateAbbr(String stateAbbr) => _$this._stateAbbr = stateAbbr;
+  String? _stateAbbr;
+  String? get stateAbbr => _$this._stateAbbr;
+  set stateAbbr(String? stateAbbr) => _$this._stateAbbr = stateAbbr;
 
-  String _date;
-  String get date => _$this._date;
-  set date(String date) => _$this._date = date;
+  String? _date;
+  String? get date => _$this._date;
+  set date(String? date) => _$this._date = date;
 
-  num _minTemp;
-  num get minTemp => _$this._minTemp;
-  set minTemp(num minTemp) => _$this._minTemp = minTemp;
+  num? _minTemp;
+  num? get minTemp => _$this._minTemp;
+  set minTemp(num? minTemp) => _$this._minTemp = minTemp;
 
-  num _maxTemp;
-  num get maxTemp => _$this._maxTemp;
-  set maxTemp(num maxTemp) => _$this._maxTemp = maxTemp;
+  num? _maxTemp;
+  num? get maxTemp => _$this._maxTemp;
+  set maxTemp(num? maxTemp) => _$this._maxTemp = maxTemp;
 
-  int _humidity;
-  int get humidity => _$this._humidity;
-  set humidity(int humidity) => _$this._humidity = humidity;
+  int? _humidity;
+  int? get humidity => _$this._humidity;
+  set humidity(int? humidity) => _$this._humidity = humidity;
 
   WeatherBuilder();
 
   WeatherBuilder get _$this {
-    if (_$v != null) {
-      _stateName = _$v.stateName;
-      _stateAbbr = _$v.stateAbbr;
-      _date = _$v.date;
-      _minTemp = _$v.minTemp;
-      _maxTemp = _$v.maxTemp;
-      _humidity = _$v.humidity;
+    final $v = _$v;
+    if ($v != null) {
+      _stateName = $v.stateName;
+      _stateAbbr = $v.stateAbbr;
+      _date = $v.date;
+      _minTemp = $v.minTemp;
+      _maxTemp = $v.maxTemp;
+      _humidity = $v.humidity;
       _$v = null;
     }
     return this;
@@ -360,14 +387,12 @@ class WeatherBuilder implements Builder<Weather, WeatherBuilder> {
 
   @override
   void replace(Weather other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Weather;
   }
 
   @override
-  void update(void Function(WeatherBuilder) updates) {
+  void update(void Function(WeatherBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -375,12 +400,18 @@ class WeatherBuilder implements Builder<Weather, WeatherBuilder> {
   _$Weather build() {
     final _$result = _$v ??
         new _$Weather._(
-            stateName: stateName,
-            stateAbbr: stateAbbr,
-            date: date,
-            minTemp: minTemp,
-            maxTemp: maxTemp,
-            humidity: humidity);
+            stateName: BuiltValueNullFieldError.checkNotNull(
+                stateName, 'Weather', 'stateName'),
+            stateAbbr: BuiltValueNullFieldError.checkNotNull(
+                stateAbbr, 'Weather', 'stateAbbr'),
+            date:
+                BuiltValueNullFieldError.checkNotNull(date, 'Weather', 'date'),
+            minTemp: BuiltValueNullFieldError.checkNotNull(
+                minTemp, 'Weather', 'minTemp'),
+            maxTemp: BuiltValueNullFieldError.checkNotNull(
+                maxTemp, 'Weather', 'maxTemp'),
+            humidity: BuiltValueNullFieldError.checkNotNull(
+                humidity, 'Weather', 'humidity'));
     replace(_$result);
     return _$result;
   }
@@ -392,19 +423,17 @@ class _$City extends City {
   @override
   final String woeid;
 
-  factory _$City([void Function(CityBuilder) updates]) => (new CityBuilder()..update(updates)).build();
+  factory _$City([void Function(CityBuilder)? updates]) =>
+      (new CityBuilder()..update(updates)).build();
 
-  _$City._({this.cityName, this.woeid}) : super._() {
-    if (cityName == null) {
-      throw new BuiltValueNullFieldError('City', 'cityName');
-    }
-    if (woeid == null) {
-      throw new BuiltValueNullFieldError('City', 'woeid');
-    }
+  _$City._({required this.cityName, required this.woeid}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(cityName, 'City', 'cityName');
+    BuiltValueNullFieldError.checkNotNull(woeid, 'City', 'woeid');
   }
 
   @override
-  City rebuild(void Function(CityBuilder) updates) => (toBuilder()..update(updates)).build();
+  City rebuild(void Function(CityBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   CityBuilder toBuilder() => new CityBuilder()..replace(this);
@@ -422,27 +451,31 @@ class _$City extends City {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('City')..add('cityName', cityName)..add('woeid', woeid)).toString();
+    return (newBuiltValueToStringHelper('City')
+          ..add('cityName', cityName)
+          ..add('woeid', woeid))
+        .toString();
   }
 }
 
 class CityBuilder implements Builder<City, CityBuilder> {
-  _$City _$v;
+  _$City? _$v;
 
-  String _cityName;
-  String get cityName => _$this._cityName;
-  set cityName(String cityName) => _$this._cityName = cityName;
+  String? _cityName;
+  String? get cityName => _$this._cityName;
+  set cityName(String? cityName) => _$this._cityName = cityName;
 
-  String _woeid;
-  String get woeid => _$this._woeid;
-  set woeid(String woeid) => _$this._woeid = woeid;
+  String? _woeid;
+  String? get woeid => _$this._woeid;
+  set woeid(String? woeid) => _$this._woeid = woeid;
 
   CityBuilder();
 
   CityBuilder get _$this {
-    if (_$v != null) {
-      _cityName = _$v.cityName;
-      _woeid = _$v.woeid;
+    final $v = _$v;
+    if ($v != null) {
+      _cityName = $v.cityName;
+      _woeid = $v.woeid;
       _$v = null;
     }
     return this;
@@ -450,20 +483,23 @@ class CityBuilder implements Builder<City, CityBuilder> {
 
   @override
   void replace(City other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$City;
   }
 
   @override
-  void update(void Function(CityBuilder) updates) {
+  void update(void Function(CityBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$City build() {
-    final _$result = _$v ?? new _$City._(cityName: cityName, woeid: woeid);
+    final _$result = _$v ??
+        new _$City._(
+            cityName: BuiltValueNullFieldError.checkNotNull(
+                cityName, 'City', 'cityName'),
+            woeid:
+                BuiltValueNullFieldError.checkNotNull(woeid, 'City', 'woeid'));
     replace(_$result);
     return _$result;
   }

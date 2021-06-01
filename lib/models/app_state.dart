@@ -8,6 +8,15 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
       builder.currentWoeid = '2487956';
     });
   }
+
+  factory AppState.initialState() {
+    return  _$AppState((AppStateBuilder builder) {
+      builder.isLoading = false;
+      builder.currentCity = 'San Francisco';
+      builder.currentWoeid = '2487956';
+    });
+  }
+
   AppState._();
 
   BuiltList<Weather> get weathers;

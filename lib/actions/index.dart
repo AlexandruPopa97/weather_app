@@ -1,8 +1,19 @@
-library actions;
+export 'weather/index.dart';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:weather_app/models/index.dart';
+abstract class AppAction {}
 
-part 'get_weather.dart';
-part 'get_city.dart';
-part 'index.freezed.dart';
+typedef ActionResult = void Function(AppAction action);
+
+abstract class ErrorAction extends AppAction {
+  Object get error;
+
+  StackTrace? get stackTrace;
+}
+
+abstract class PendingAction extends AppAction {
+  String get pendingId;
+}
+
+abstract class ActionStart extends PendingAction {}
+
+abstract class ActionDone extends PendingAction {}

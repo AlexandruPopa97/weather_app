@@ -1,8 +1,27 @@
 part of models;
 
 abstract class Weather implements Built<Weather, WeatherBuilder> {
-  factory Weather([void Function(WeatherBuilder b) updates]) = _$Weather;
-  factory Weather.fromJson(dynamic json) => serializers.deserializeWith(serializer, json);
+  factory Weather({
+    required String stateName,
+    required String date,
+    required num minTemp,
+    required num maxTemp,
+    required int humidity,
+    required String stateAbbr,
+  }) {
+    return _$Weather((WeatherBuilder builder) {
+      builder
+        ..stateName = stateName
+        ..date = date
+        ..maxTemp = maxTemp
+        ..minTemp = minTemp
+        ..humidity = humidity
+        ..stateAbbr = stateAbbr;
+    });
+  }
+
+  factory Weather.fromJson(dynamic json) =>
+      serializers.deserializeWith(serializer, json) as Weather;
 
   Weather._();
 
