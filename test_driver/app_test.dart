@@ -40,7 +40,7 @@ void main() {
       String fahrenheit = await driver.getText(find.byValueKey('min_temp_1'));
       fahrenheit = fahrenheit.split(' ')[1];
 
-      expect(double.parse(celsius) * 1.8 + 33, double.parse(fahrenheit));
+      expect((double.parse(celsius) * 1.8 + 32).toStringAsFixed(0), double.parse(fahrenheit).toStringAsFixed(0));
     });
 
     test('changeCityToBucharest', () async {
